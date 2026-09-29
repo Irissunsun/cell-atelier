@@ -4,7 +4,7 @@
 
 七类标本 · 中文结构笔记 · 植物细胞三种视图 · 原核 / 真核对照 · GLB 下载 · MIT 开源
 
-![动物细胞网页实际截图](docs/images/web/animal-overview.png)
+![动物细胞网页实际截图](docs/images/web/animal-overview.jpg)
 
 > 上图为当前网页在 Chrome 中的实际截图。下方细胞图册为仓库 GLB 模型在 Blender 中重新渲染的静态预览；两者的灯光与材质呈现会有差异。
 
@@ -98,15 +98,15 @@
 
 **剖面：观察内部细胞器。**
 
-![植物细胞剖面网页截图](docs/images/web/plant-cutaway.png)
+![植物细胞剖面网页截图](docs/images/web/plant-cutaway.jpg)
 
 **整体：观察闭合外形。**
 
-![植物细胞整体网页截图](docs/images/web/plant-whole.png)
+![植物细胞整体网页截图](docs/images/web/plant-whole.jpg)
 
 **透明与标签：同时定位九类结构。**
 
-![植物细胞透明标签网页截图](docs/images/web/plant-transparent-labels.png)
+![植物细胞透明标签网页截图](docs/images/web/plant-transparent-labels.jpg)
 
 在整体模式点击左侧内部结构名称，会自动进入剖面以便观察。重置会清除结构选择，恢复默认剖面并关闭全部标签。其他六类标本目前使用各自原有的模型展示方式。
 
