@@ -7,6 +7,7 @@ import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 import {createViewLabels} from './view-labels.js';
 import {createFocusView} from './focus-view.js';
 import {specimens,extraEntries,structureEntry,membraneHiddenAfterSelection} from './specimens.js';
+const assetBase=import.meta.env.BASE_URL;
 const entries={
  nucleus:['细胞核','Nucleus','#85519f','细胞的遗传信息中心。核膜包裹着染色质，内部的核仁参与核糖体的形成。','储存 DNA，调控基因表达','双层核膜包围的细胞器','紫色剖面中，深紫色的小球是核仁。'],
  mitochondria:['线粒体','Mitochondrion','#cc6c52','细胞进行有氧呼吸的重要场所。内部膜折叠形成嵴，为能量转换提供更大的表面积。','通过氧化磷酸化合成 ATP','双层膜，内膜折叠形成嵴','珊瑚色外壳内，浅粉色曲线表现内膜的折叠。'],
@@ -22,7 +23,7 @@ Object.assign(entries,extraEntries);
 let activeCell='animal-cell',loadVersion=0;
 const entryFor=key=>structureEntry(activeCell,key,entries);
 const cellList=document.createElement('div');cellList.className='cell-list';cellList.setAttribute('aria-label','选择细胞类型');document.querySelector('.specimen').replaceWith(cellList);
-for(const id of ['animal-cell','plant-cell','cyanobacterium','white-blood-cell','neuron','red-blood-cell','sperm-cell']){const cell=specimens[id];const b=document.createElement('button');b.className='specimen';b.dataset.cell=id;b.innerHTML=`<span class="cell-icon" style="color:${cell.color}"><img src="/thumbnails/${id}.png" alt="" width="44" height="44" loading="lazy"></span><span>${cell.en}<small>${cell.zh} · ${cell.sub}</small></span>`;b.onclick=()=>loadCell(id);cellList.append(b)}
+for(const id of ['animal-cell','plant-cell','cyanobacterium','white-blood-cell','neuron','red-blood-cell','sperm-cell']){const cell=specimens[id];const b=document.createElement('button');b.className='specimen';b.dataset.cell=id;b.innerHTML=`<span class="cell-icon" style="color:${cell.color}"><img src="${assetBase}thumbnails/${id}.png" alt="" width="44" height="44" loading="lazy"></span><span>${cell.en}<small>${cell.zh} · ${cell.sub}</small></span>`;b.onclick=()=>loadCell(id);cellList.append(b)}
 function buildNavigation(){nav.replaceChildren();for(const key of specimens[activeCell].keys){const v=entryFor(key);const b=document.createElement('button');b.dataset.key=key;b.innerHTML=`<span class="dot" style="--dot:${v[2]}"></span>${v[0]}<span class="en">${v[1]}</span>`;b.onclick=()=>select(key);nav.append(b)}}
 const mount=document.querySelector('#canvas');
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.max(1,Math.min(devicePixelRatio,1.7)));renderer.setClearColor(0xf8f5ea,1);renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.0;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;mount.append(renderer.domElement);
@@ -100,17 +101,17 @@ const modelCache=new Map();
 async function loadCell(id){
  const version=++loadVersion,loading=document.querySelector('#loading');loading.hidden=false;loading.textContent=`正在准备${specimens[id].zh}…`;document.querySelector('.viewer').setAttribute('aria-busy','true');
  try{
-  if(!modelCache.has(id))modelCache.set(id,new GLTFLoader().loadAsync(`/${id}.glb?v=7`).catch(e=>{modelCache.delete(id);throw e}));
+  if(!modelCache.has(id))modelCache.set(id,new GLTFLoader().loadAsync(`${assetBase}${id}.glb?v=7`).catch(e=>{modelCache.delete(id);throw e}));
   const g=await modelCache.get(id);
   if(id==='plant-cell'&&!g.scene.userData.hasShells){
-   if(!modelCache.has('plant-shells'))modelCache.set('plant-shells',new GLTFLoader().loadAsync('/plant-shells.glb?v=1').catch(e=>{modelCache.delete('plant-shells');throw e}));
+   if(!modelCache.has('plant-shells'))modelCache.set('plant-shells',new GLTFLoader().loadAsync(`${assetBase}plant-shells.glb?v=1`).catch(e=>{modelCache.delete('plant-shells');throw e}));
    const shells=await modelCache.get('plant-shells');g.scene.add(shells.scene);g.scene.userData.hasShells=true;
   }
   if(version!==loadVersion)return;
   modePanel.hidden=id!=='plant-cell';
   if(model)scene.remove(model);meshes.length=0;activeCell=id;model=g.scene;scene.add(model);
   model.traverse(o=>{if(o.isMesh){prepareSelectionMaterials(o);meshes.push(o);o.castShadow=true;o.receiveShadow=true;for(const m of (Array.isArray(o.material)?o.material:[o.material])){m.side=THREE.DoubleSide;m.envMapIntensity=['animal-cell','plant-cell'].includes(id)?.32:.45;if(o.geometry.attributes.uv){m.bumpMap=bump;m.bumpScale=.025;m.needsUpdate=true}}}});
-  const cell=specimens[id];document.querySelector('.title h1').innerHTML=`${cell.en}<span>${cell.zh}</span>`;document.querySelector('.title>p:last-child').textContent=cell.description;document.querySelector('.index-note').textContent=`${cell.zh} / ${cell.sub}`;document.querySelector('footer>span:last-child').textContent=`${cell.zh} / 可交互模型`;const download=document.querySelector('.download');download.href=`/${id}.glb`;download.setAttribute('download','');download.removeAttribute('aria-disabled');download.innerHTML='下载 3D 标本 <span>GLB ↗</span>';document.querySelector('.edition span').textContent=`№ 00${Object.keys(specimens).indexOf(id)+1}`;document.querySelector('.viewer').dataset.specimen=id;
+  const cell=specimens[id];document.querySelector('.title h1').innerHTML=`${cell.en}<span>${cell.zh}</span>`;document.querySelector('.title>p:last-child').textContent=cell.description;document.querySelector('.index-note').textContent=`${cell.zh} / ${cell.sub}`;document.querySelector('footer>span:last-child').textContent=`${cell.zh} / 可交互模型`;const download=document.querySelector('.download');download.href=`${assetBase}${id}.glb`;download.setAttribute('download','');download.removeAttribute('aria-disabled');download.innerHTML='下载 3D 标本 <span>GLB ↗</span>';document.querySelector('.edition span').textContent=`№ 00${Object.keys(specimens).indexOf(id)+1}`;document.querySelector('.viewer').dataset.specimen=id;
   cellList.querySelectorAll('button').forEach(b=>{b.classList.toggle('selected',b.dataset.cell===id);b.setAttribute('aria-pressed',b.dataset.cell===id)});
   const membraneButton=document.querySelector('#membrane');const hasMembraneToggle=cell.hidden.includes('membrane');membraneButton.disabled=!hasMembraneToggle;membraneButton.textContent=hasMembraneToggle?`◌ ${cell.hideLabel}`:'◌ 细胞膜未单独建模';
   document.querySelector('.catalog-foot').textContent=`教学简化示意 · 非真实比例与颜色。${cell.omitted}`;

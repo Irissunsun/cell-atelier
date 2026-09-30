@@ -4,6 +4,10 @@
 
 七类标本 · 中文结构笔记 · 植物细胞三种视图 · 原核 / 真核对照 · GLB 下载 · MIT 开源
 
+**[▶ 在线体验网页](https://irissunsun.github.io/cell-atelier/)** · [查看源代码](https://github.com/Irissunsun/cell-atelier)
+
+点击在线体验可直接打开，不需要安装 Node.js 或 Blender。当前通过 `gh-pages` 分支发布；主分支更新后需要重新构建并发布。
+
 ![动物细胞网页实际截图](docs/images/web/animal-overview.jpg)
 
 > 上图为当前网页在 Chrome 中的实际截图。下方细胞图册为仓库 GLB 模型在 Blender 中重新渲染的静态预览；两者的灯光与材质呈现会有差异。
@@ -251,9 +255,11 @@ Blender 生成几何并按 `organelle` 写入结构标识，导出 GLB；网页�
 
 运行 `npm run build` 后，可将 `dist/` 部署到支持静态文件的网站服务。
 
-当前模型、缩略图和下载链接使用 `/` 开头的资源路径，适合放在域名根路径。**GitHub Pages 的仓库子路径需要同时调整 Vite base、模型 URL、缩略图 URL 与下载地址**；仅改变 Vite base 不足以修正运行时写死的资源路径。
+在线演示部署在 [GitHub Pages](https://irissunsun.github.io/cell-atelier/)，由 `gh-pages` 分支提供静态文件。发布前设置 `GITHUB_PAGES=true` 构建，使 Vite 与运行时资源地址均使用 `/cell-atelier/` 前缀；本地开发仍使用 `/`。
 
-本仓库提供源码，目前没有配置在线演示站。Google Fonts 通过网络加载，不可访问时回退到系统字体。
+维护者更新网站时，运行 `npm test` 与 `GITHUB_PAGES=true npm run build`，再将 `dist/` 内容发布到 `gh-pages` 分支。当前 GitHub 登录令牌没有工作流写入权限，因此没有配置自动部署。
+
+Google Fonts 通过网络加载，不可访问时回退到系统字体。
 
 ## 常见问题
 
