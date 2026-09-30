@@ -1,0 +1,27 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cell Atelier · 细胞标本室</title>  <script type="module" crossorigin src="/cell-atelier/assets/index-jN_OPxXw.js"></script>
+  <link rel="modulepreload" crossorigin href="/cell-atelier/assets/three-core-DnGx3e9N.js">
+  <link rel="modulepreload" crossorigin href="/cell-atelier/assets/three-renderer-Da0A1_a6.js">
+  <link rel="modulepreload" crossorigin href="/cell-atelier/assets/three-addons-DpKx-CCh.js">
+  <link rel="stylesheet" crossorigin href="/cell-atelier/assets/index-BOfDyqnX.css">
+</head><body><div id="app">
+<header><a class="brand" href="./">✺ <span>Cell Atelier</span></a><span class="tagline">A small world, beautifully complex.</span><div class="edition">INTERACTIVE SPECIMEN <span>№ 001</span></div></header>
+<main><aside class="catalog"><p class="eyebrow">THE COLLECTION / 标本集</p><button class="specimen selected"><span class="cell-icon">◉</span><span>Animal Cell<small>动物细胞 · 真核生物</small></span><span>↗</span></button><a class="compare-link" href="#cell-comparison">原核 / 真核对照 <span>↓</span></a><div class="index-note">01 / 动物细胞研究<br>拖动标本，从不同角度探索内部结构。</div><p class="eyebrow organelle-heading">EXPLORE / 结构</p><nav id="organelles" aria-label="选择细胞结构"></nav><div class="catalog-foot">形态与色彩参考你的示例视频<br>艺术化教学模型 · 非真实比例</div></aside>
+<section class="viewer"><div class="title"><p class="eyebrow">THE ANATOMY OF LIFE</p><h1>Animal Cell<span>动物细胞</span></h1><p>一个微小而完整的世界。</p></div><div class="view-badge"><span></span> LIVE 3D</div><div id="canvas"></div><div id="loading" role="status">正在准备细胞标本…</div><div class="hint">拖动旋转 · 滚轮缩放 · 点选结构</div><div class="toolbar"><button id="rotate" aria-pressed="false">↻ 自动旋转</button><button id="membrane" aria-pressed="false">◌ 隐藏外膜</button><button id="isolate" aria-pressed="false">⊙ 单独查看</button><button id="reset">⟲ 重置</button><button id="capture" title="保存当前标本截图">↓ 截图</button></div></section>
+<aside class="details"><p class="eyebrow">UNDER THE MICROSCOPE / 结构笔记</p><div id="detail-icon">◉</div><p class="detail-number">SELECTED ORGANELLE</p><h2 id="detail-title"></h2><p id="detail-en"></p><div class="detail-rule"></div><p id="detail-description"></p><dl><dt>主要功能</dt><dd id="detail-function"></dd><dt>结构特点</dt><dd id="detail-structure"></dd></dl><div class="note"><span>Field note</span><p id="detail-note"></p></div><a class="download" href="./animal-cell.glb" download>下载 3D 标本 <span>GLB ↗</span></a></aside></main>
+
+<section id="cell-comparison" class="comparison" aria-labelledby="comparison-title">
+ <div class="comparison-heading"><div><p class="eyebrow">COMPARE / 结构对照</p><h2 id="comparison-title">细胞的共同点与差异</h2></div><p>先看有无核膜包围的细胞核，再比较结构与功能。</p></div>
+ <div class="comparison-scroll" tabindex="0" role="region" aria-label="三类细胞结构对照，窄屏可横向滚动">
+ <table><caption>典型动物细胞、植物叶肉细胞与具类囊体蓝细菌的比较</caption><thead><tr><th scope="col">比较项目</th><th scope="col">动物细胞<button data-compare-cell="animal-cell">查看 3D ↗</button></th><th scope="col">植物叶肉细胞<button data-compare-cell="plant-cell">查看 3D ↗</button></th><th scope="col">蓝细菌<button data-compare-cell="cyanobacterium">查看 3D ↗</button></th></tr></thead><tbody>
+ <tr class="key-difference"><th scope="row">细胞类型</th><td>真核细胞</td><td>真核细胞</td><td>原核细胞</td></tr>
+ <tr class="key-difference"><th scope="row">核膜包围的细胞核</th><td>有</td><td>有</td><td><strong>无</strong> · DNA主要位于拟核</td></tr>
+ <tr><th scope="row">细胞膜</th><td>有</td><td>有</td><td>有</td></tr>
+ <tr><th scope="row">细胞壁</th><td>无</td><td>有 · 主要含纤维素等</td><td>有 · 含肽聚糖</td></tr>
+ <tr><th scope="row">核糖体</th><td>有</td><td>有</td><td>有</td></tr>
+ <tr><th scope="row">线粒体</th><td>有</td><td>有</td><td>无</td></tr>
+ <tr><th scope="row">叶绿体</th><td>无</td><td>有</td><td><strong>无</strong> · 光合膜为类囊体膜</td></tr>
+ <tr><th scope="row">光合作用</th><td>不能</td><td>能</td><td>能</td></tr>
+ </tbody></table></div>
+ <div class="comparison-notes"><p><strong>没有叶绿体 ≠ 不能光合作用</strong><br>蓝细菌具有光合色素及相关反应体系；叶绿体并非所有光合生物都具有的结构。</p><p><strong>比较时明确是哪一种细胞</strong><br>此处动物列指典型有核体细胞，不包含哺乳动物成熟红细胞等特例。植物列为叶肉细胞，不能推广为“所有植物细胞都有叶绿体”。</p><p><strong>模型没画出来 ≠ 生物没有</strong><br>模型是简化示意；例如这些真核细胞标本未逐一绘出过氧化物酶体等结构。结合右侧结构笔记中的展示范围阅读。</p></div>
+</section>
+<footer><span>CELL ATELIER <i>—</i> Explore life at a smaller scale.</span><span>动物细胞 / 可交互剖面模型</span></footer></div></body></html>
